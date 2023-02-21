@@ -66,7 +66,7 @@ resource "helm_release" "application" {
   }
 
   dynamic "set" {
-    for_each = var.additional_set
+    for_each = try(jsondecode(var.additional_set), var.additional_set)
     content {
       name  = set.value.name
       value = set.value.value
